@@ -132,12 +132,12 @@ const Scene2 = ({ nodes }) => {
           <group scale={w / 6} position={[-1.2, -5, 0]}>
             <Text
               font={font}
-              position={[0.5, 3.5, 1]}
+              position={[0.6, 3, 1]}
               scale={0.07}
               color={"#000000"}
             >
               He also uses his chubby body to float to wherever he likes{`\n`}
-              bdcause Frog doesn't know how to swim.
+              because Frog doesn't know how to swim.
             </Text>
             <group rotation={[0, -Math.PI / 6, 0]}>
               <primitive object={nodes.frog_island} />
