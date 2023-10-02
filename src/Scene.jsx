@@ -132,7 +132,7 @@ const Scene2 = ({ nodes }) => {
           <group scale={w / 6} position={[-1.2, -5, 0]}>
             <Text
               font={font}
-              position={[0.6, 3, 1]}
+              position={[0.6, 3.5, 1]}
               scale={0.07}
               color={"#000000"}
             >
