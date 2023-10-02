@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { useThree, useFrame } from "@react-three/fiber";
 import font from "./assets/CormorantUpright.ttf";
 export default () => {
-  const { nodes } = useGLTF("./astro.glb");
+  const { nodes } = useGLTF("./models.glb");
   const { camera, mouse } = useThree();
   const vec = new THREE.Vector3();
   const group = useRef();
@@ -19,6 +19,7 @@ export default () => {
       <Intro frog={nodes.frog} />
       <Scene1 nodes={nodes} />
       <Scene2 nodes={nodes} />
+      <Ending />
     </group>
   );
 };
@@ -37,14 +38,6 @@ const Intro = ({ frog }) => {
         Frog's Adventure
       </Text>
       <group scale={w / 10} position={[0, -0.7, 0]}>
-        {/* <mesh position={[0, -0.9, -0.401]} scale={1.9}>
-          <planeGeometry args={[1, 1]} />
-          <meshStandardMaterial color={"#000000"} />
-        </mesh>
-        <mesh position={[0, -0.9, -0.4]} scale={1.8}>
-          <planeGeometry args={[1, 1]} />
-          <meshStandardMaterial color={"#ffffff"} toneMapped={false} />
-        </mesh> */}
         <Text font={font} position={[0, -0.1, 0]} color={"#000000"} scale={0.2}>
           This is FROG
         </Text>
@@ -66,6 +59,20 @@ const Intro = ({ frog }) => {
     </>
   );
 };
+const Ending = () => {
+  const { width: w, height: h } = useThree((state) => state.viewport);
+
+  return (
+    <Text
+      font={font}
+      position={[0, -h * 3, 0]}
+      scale={w / 11}
+      color={"#000000"}
+    >
+      To be continued...
+    </Text>
+  );
+};
 const Scene1 = ({ nodes }) => {
   const { width: w, height: h } = useThree((state) => state.viewport);
 
@@ -80,7 +87,8 @@ const Scene1 = ({ nodes }) => {
           <directionalLight intensity={1} position={[-3, 3, 3]} />
           <group scale={w / 6} position={[0, -5, -1.5]}>
             <Text font={font} position={[0.3, 4, 1]} scale={0.12}>
-              Frog has a chubby body that {`\n`}can make him float in space
+              Frog has a balloon-like body that {`\n`}can make him float in
+              space
             </Text>
             <primitive object={nodes.moon} />
             <group position={[0, 1, 0]}>
@@ -121,19 +129,59 @@ const Scene2 = ({ nodes }) => {
           <ambientLight intensity={1} />
           <hemisphereLight intensity={1} position={[-2, -1, 1]} />
           <directionalLight intensity={1} position={[-3, 3, 3]} />
-          <group scale={w / 6} position={[-0.7, -5, 0.7]}>
-            <Text font={font} position={[0.3, 3.5, 1]} scale={0.07}>
-              Frog doesn't know how to swim.{`\n`}He uses his balloon-like body
-              {`\n`}to float to wherever he likes
+          <group scale={w / 6} position={[-1.2, -5, 0]}>
+            <Text
+              font={font}
+              position={[0.5, 3.5, 1]}
+              scale={0.07}
+              color={"#000000"}
+            >
+              He also uses his chubby body to float to wherever he likes{`\n`}
+              bdcause Frog doesn't know how to swim.
             </Text>
             <group rotation={[0, -Math.PI / 6, 0]}>
-              <primitive object={nodes.island} />
+              <primitive object={nodes.frog_island} />
+              <mesh geometry={nodes.black.geometry}>
+                <meshStandardMaterial color={"#000000"} />
+              </mesh>
+              <mesh geometry={nodes.cream.geometry}>
+                <meshStandardMaterial color={"#faf0ca"} />
+              </mesh>
+              <mesh geometry={nodes.dark_brown.geometry}>
+                <meshStandardMaterial color={"#7f5539"} />
+              </mesh>
+              <mesh geometry={nodes.dark_green.geometry}>
+                <meshStandardMaterial color={"#608040"} />
+              </mesh>
+              <mesh geometry={nodes.light_brown.geometry}>
+                <meshStandardMaterial color={"#9c6644"} />
+              </mesh>
+              <mesh geometry={nodes.light_green.geometry}>
+                <meshStandardMaterial color={"#90a955"} />
+              </mesh>
+              <mesh geometry={nodes.red.geometry}>
+                <meshStandardMaterial color={"#fc9e4f"} />
+              </mesh>
+              <mesh geometry={nodes.sand.geometry}>
+                <meshStandardMaterial color={"#ffe6a7"} />
+              </mesh>
               <mesh geometry={nodes.water.geometry}>
                 <meshStandardMaterial
-                  color={"#63b1ff"}
+                  color={"#73d2de"}
                   transparent
-                  opacity={0.9}
+                  opacity={0.6}
                 />
+              </mesh>
+            </group>
+            <group>
+              <mesh geometry={nodes.cloud.geometry}>
+                <meshToonMaterial color={"#ffffff"} />
+              </mesh>
+              <mesh geometry={nodes.sun.geometry}>
+                <meshBasicMaterial color={"#ffb627"} toneMapped={false} />
+              </mesh>
+              <mesh geometry={nodes.sunray.geometry}>
+                <meshBasicMaterial color={"#ff9505"} toneMapped={false} />
               </mesh>
             </group>
           </group>
