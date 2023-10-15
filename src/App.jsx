@@ -8,7 +8,7 @@ function App() {
         <ambientLight intensity={1} />
         <hemisphereLight intensity={1} position={[-2, -1, -1]} />
         <directionalLight intensity={1} position={[-3, 3, 3]} />
-        <ScrollControls pages={4} damping={0.4}>
+        <ScrollControls pages={5} damping={0.4}>
           <Scroll>
             <Scene />
           </Scroll>

@@ -5,20 +5,14 @@ import { useThree, useFrame } from "@react-three/fiber";
 import font from "./assets/CormorantUpright.ttf";
 export default () => {
   const { nodes } = useGLTF("./models.glb");
-  const { camera, mouse } = useThree();
-  const vec = new THREE.Vector3();
+  const { width: w, height: h } = useThree((state) => state.viewport);
   const group = useRef();
-  useFrame(() => {
-    camera.position.lerp(
-      vec.set(mouse.x * 0.7, mouse.y * 0.6, camera.position.z),
-      0.01
-    );
-  });
   return (
     <group ref={group}>
       <Intro frog={nodes.frog} />
-      <Scene1 nodes={nodes} />
-      <Scene2 nodes={nodes} />
+      <Astronaut nodes={nodes} w={w} positionY={-h * 1.01} />
+      <Sweet nodes={nodes} w={w} positionY={-h * 2.1} />
+      <Island nodes={nodes} w={w} positionY={-h * 3.2} />
       <Ending />
     </group>
   );
@@ -65,7 +59,7 @@ const Ending = () => {
   return (
     <Text
       font={font}
-      position={[0, -h * 3, 0]}
+      position={[0, -h * 4, 0]}
       scale={w / 11}
       color={"#000000"}
     >
@@ -73,12 +67,10 @@ const Ending = () => {
     </Text>
   );
 };
-const Scene1 = ({ nodes }) => {
-  const { width: w, height: h } = useThree((state) => state.viewport);
-
+const Astronaut = ({ nodes, w, positionY }) => {
   return (
     <>
-      <mesh position={[0, -h * 1.01, 0]}>
+      <mesh position={[0, positionY, 0]}>
         <planeGeometry args={[w / 2, w / 2]} />
         <MeshPortalMaterial>
           <color attach="background" args={["#1b1a28"]} />
@@ -110,19 +102,208 @@ const Scene1 = ({ nodes }) => {
           </group>
         </MeshPortalMaterial>
       </mesh>
-      <mesh position={[0, -h * 1.01, -0.001]} scale={1.02}>
+      <mesh position={[0, positionY, -0.001]} scale={1.02}>
         <planeGeometry args={[w / 2, w / 2]} />
         <meshStandardMaterial color={"#000000"} />
       </mesh>
     </>
   );
 };
-const Scene2 = ({ nodes }) => {
-  const { width: w, height: h } = useThree((state) => state.viewport);
 
+const Sweet = ({ nodes, w, positionY }) => {
   return (
     <>
-      <mesh position={[0, -h * 2.1, 0]}>
+      <mesh position={[0, positionY, 0]}>
+        <planeGeometry args={[w / 2, w / 2]} />
+        <MeshPortalMaterial>
+          <color attach="background" args={["#d7e3fc"]} />
+          <ambientLight intensity={1} />
+          <hemisphereLight intensity={1} position={[1, 5, 1.5]} />
+          <directionalLight intensity={1} position={[1, 5, 1.5]} />
+          <group
+            scale={w / 13}
+            position={[0.2, -1, -0.5]}
+            rotation={[Math.PI / 6, -Math.PI / 8, 0]}
+          >
+            <Picnic_in nodes={nodes} />
+          </group>
+        </MeshPortalMaterial>
+      </mesh>
+      <mesh position={[0, positionY, -0.001]} scale={1.02}>
+        <planeGeometry args={[w / 2, w / 2]} />
+        <meshStandardMaterial color={"#000000"} />
+      </mesh>
+      <group position={[0, positionY, 0]}>
+        <group
+          scale={w / 13}
+          position={[0.2, -1, -0.5]}
+          rotation={[Math.PI / 6, -Math.PI / 8, 0]}
+        >
+          <Picnic_out nodes={nodes} />
+        </group>
+      </group>
+    </>
+  );
+};
+const zPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+const yPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 1);
+
+const PICNIC_COLORS = {
+  white: "#fefae0",
+  red1: "#e76f51",
+  black: "#001219",
+  blueberry: "#b8c0ff",
+  blueberry_cream: "#dee2ff",
+  brown: "#d4a373",
+  cream2: "#ffd991",
+  cream1: "#fdfcdc",
+  dark_brown: "#7f5539",
+  green1: "#bfcc94",
+  green2: "#d9e0a3",
+  green3: "#e2f8aa",
+  orange: "#ffb262",
+  pink: "#f7a4b2",
+  pinkLight: "#f6cdd4",
+};
+const Picnic_in = ({ nodes }) => {
+  return (
+    <>
+      <mesh geometry={nodes.white.geometry}>
+        <meshStandardMaterial
+          color={PICNIC_COLORS.white}
+          side={THREE.DoubleSide}
+          clippingPlanes={[zPlane, yPlane]}
+        />
+      </mesh>
+      <mesh geometry={nodes.red1_clip.geometry}>
+        <meshStandardMaterial
+          color={PICNIC_COLORS.red1}
+          side={THREE.DoubleSide}
+          clippingPlanes={[zPlane, yPlane]}
+        />
+      </mesh>
+      <mesh geometry={nodes.black_in.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.black} />
+      </mesh>
+      <mesh geometry={nodes.blueberry.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.blueberry} />
+      </mesh>
+      <mesh geometry={nodes.brown.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.brown} />
+      </mesh>
+      <mesh geometry={nodes.cream1_in.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.cream1} />
+      </mesh>
+      <mesh geometry={nodes.cream2_in.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.cream2} />
+      </mesh>
+      <mesh geometry={nodes.cream_blue.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.blueberry_cream} />
+      </mesh>
+      <mesh geometry={nodes.dark_brown_sweet.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.dark_brown} />
+      </mesh>
+      <mesh geometry={nodes.glass.geometry}>
+        <meshStandardMaterial
+          color={"#c5dedd"}
+          transparent
+          opacity={0.6}
+          depthWrite={false}
+        />
+      </mesh>
+      <mesh geometry={nodes.green1_in.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.green1} />
+      </mesh>
+      <mesh geometry={nodes.liquid.geometry}>
+        <meshStandardMaterial
+          color={"#ffafcc"}
+          transparent
+          opacity={0.6}
+          depthWrite={false}
+        />
+      </mesh>
+      <mesh geometry={nodes.orange_in.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.orange} />
+      </mesh>
+      <mesh geometry={nodes.green3_in.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.green3} />
+      </mesh>
+      <mesh geometry={nodes.red1.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.red1} />
+      </mesh>
+      <mesh geometry={nodes.white_in.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.white} />
+      </mesh>
+      <mesh geometry={nodes.pink_in.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.pink} />
+      </mesh>
+      <mesh geometry={nodes.pinkLight_in.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.pinkLight} />
+      </mesh>
+    </>
+  );
+};
+
+const Picnic_out = ({ nodes }) => {
+  return (
+    <>
+      <mesh geometry={nodes.white.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.white} />
+      </mesh>
+      <mesh geometry={nodes.red1_clip.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.red1} />
+      </mesh>
+      <mesh geometry={nodes.black_out.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.black} />
+      </mesh>
+      <mesh geometry={nodes.cream1_out.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.cream1} />
+      </mesh>
+      <mesh geometry={nodes.cream2_out.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.cream2} />
+      </mesh>
+      <mesh geometry={nodes.green1_out.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.green1} />
+      </mesh>
+      <mesh geometry={nodes.green2.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.green2} />
+      </mesh>
+      <mesh geometry={nodes.green3_out.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.green3} />
+      </mesh>
+      <mesh geometry={nodes.boba_cup.geometry}>
+        <meshStandardMaterial
+          color={"#f7f8e1"}
+          transparent
+          opacity={0.9}
+          depthWrite={false}
+        />
+      </mesh>
+      <mesh geometry={nodes.milk.geometry}>
+        <meshStandardMaterial
+          color={"#ccd5ae"}
+          transparent
+          opacity={0.8}
+          depthWrite={false}
+        />
+      </mesh>
+      <mesh geometry={nodes.orange_out.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.orange} />
+      </mesh>
+      <mesh geometry={nodes.pink_out.geometry}>
+        <meshToonMaterial color={PICNIC_COLORS.pink} />
+      </mesh>
+      <mesh geometry={nodes.white_out.geometry}>
+        <meshStandardMaterial color={PICNIC_COLORS.white} />
+      </mesh>
+    </>
+  );
+};
+
+const Island = ({ nodes, w, positionY }) => {
+  return (
+    <>
+      <mesh position={[0, positionY, 0]}>
         <planeGeometry args={[w / 2, w / 2]} />
         <MeshPortalMaterial>
           <color attach="background" args={["#9bcdff"]} />
@@ -141,13 +322,13 @@ const Scene2 = ({ nodes }) => {
             </Text>
             <group rotation={[0, -Math.PI / 6, 0]}>
               <primitive object={nodes.frog_island} />
-              <mesh geometry={nodes.black.geometry}>
+              <mesh geometry={nodes.black_island.geometry}>
                 <meshStandardMaterial color={"#000000"} />
               </mesh>
               <mesh geometry={nodes.cream.geometry}>
                 <meshStandardMaterial color={"#faf0ca"} />
               </mesh>
-              <mesh geometry={nodes.dark_brown.geometry}>
+              <mesh geometry={nodes.dark_brown_island.geometry}>
                 <meshStandardMaterial color={"#7f5539"} />
               </mesh>
               <mesh geometry={nodes.dark_green.geometry}>
@@ -187,26 +368,9 @@ const Scene2 = ({ nodes }) => {
           </group>
         </MeshPortalMaterial>
       </mesh>
-      <mesh position={[0, -h * 2.1, -0.001]} scale={1.02}>
+      <mesh position={[0, positionY, -0.001]} scale={1.02}>
         <planeGeometry args={[w / 2, w / 2]} />
         <meshStandardMaterial color={"#000000"} />
-      </mesh>
-    </>
-  );
-};
-const Scene3 = ({ nodes }) => {
-  return (
-    <>
-      <mesh geometry={nodes.portal.geometry}>
-        <MeshPortalMaterial>
-          <color attach="background" args={["#1b1a28"]} />
-          <ambientLight intensity={1} />
-          <hemisphereLight intensity={1} position={[-2, -1, -1]} />
-          <directionalLight intensity={1} position={[-3, 3, 3]} />
-          <mesh geometry={nodes.stars.geometry}>
-            <meshStandardMaterial color={"#f9f1ac"} />
-          </mesh>
-        </MeshPortalMaterial>
       </mesh>
     </>
   );
