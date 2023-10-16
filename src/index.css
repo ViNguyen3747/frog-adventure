@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Upright&display=swap");
 html,
 body,
 #root {
@@ -16,7 +17,7 @@ canvas {
 }
 
 .draft {
-  background-color:  #fdecff;
+  background-color: #f7a4b2;
 }
 
 .scrollArea {
@@ -38,4 +39,36 @@ canvas {
 
 ::-webkit-scrollbar-thumb {
   background-color: rgb(0, 0, 0);
+}
+
+a {
+  position: absolute;
+  display: block;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  margin: 10px;
+  font-family: "Cormorant Upright", serif;
+  color: #252525;
+  font-size: 24px;
+  text-decoration: none;
+  cursor: url("/frog.svg"), default;
+}
+
+#name::before {
+  background-color: #252525;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  margin-right: 10px;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  width: 0.7rem;
+}
+a:hover {
+  cursor: url("/frog.svg"), default;
+}
+a:hover #name::before {
+  background-color: #252525;
+  width: 3rem;
+  cursor: url("/frog.svg"), default;
 }

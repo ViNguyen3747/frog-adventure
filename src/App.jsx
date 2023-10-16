@@ -14,6 +14,10 @@ function App() {
           </Scroll>
         </ScrollControls>
       </Canvas>
+      <a href="https://vi-nguyen.vercel.app/" target="_blank">
+        <span>Designed by </span>
+        <span id="name">Vi Nguyen</span>
+      </a>
     </>
   );
 }
