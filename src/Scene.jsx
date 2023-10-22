@@ -10,7 +10,7 @@ export default () => {
   return (
     <group ref={group}>
       <Intro frog={nodes.frog} />
-      <Astronaut nodes={nodes} w={w} positionY={-h * 1.01} />
+      <Astronaut nodes={nodes} w={w} positionY={-h} />
       <Sweet nodes={nodes} w={w} positionY={-h * 2.1} />
       <Island nodes={nodes} w={w} positionY={-h * 3.2} />
       <Ending />
@@ -28,17 +28,17 @@ const Intro = ({ frog }) => {
   });
   return (
     <>
-      <Text font={font} position={[0, 0.5, 0]} scale={w / 8} color={"#000000"}>
+      <Text font={font} position={[0, 0.5, 0]} scale={w / 8} color={"#faf6ce"}>
         Frog's Adventure
       </Text>
       <group scale={w / 10} position={[0, -0.7, 0]}>
-        <Text font={font} position={[0, -0.1, 0]} color={"#000000"} scale={0.2}>
+        <Text font={font} position={[0, -0.1, 0]} color={"#faf6ce"} scale={0.2}>
           This is FROG
         </Text>
         <Text
           font={font}
           position={[0, -0.3, 0]}
-          color={"#000000"}
+          color={"#faf6ce"}
           scale={0.15}
         >
           He has nothing but his free spirit
@@ -61,7 +61,7 @@ const Ending = () => {
       font={font}
       position={[0, -h * 4, 0]}
       scale={w / 11}
-      color={"#000000"}
+      color={"#faf6ce"}
     >
       To be continued...
     </Text>
@@ -70,7 +70,10 @@ const Ending = () => {
 const Astronaut = ({ nodes, w, positionY }) => {
   return (
     <>
-      <mesh position={[0, positionY, 0]}>
+      <mesh
+        position={[0, positionY, 0]}
+        rotation={[0, Math.PI / 15, -Math.PI / 20]}
+      >
         <planeGeometry args={[w / 2, w / 2]} />
         <MeshPortalMaterial>
           <color attach="background" args={["#1b1a28"]} />
@@ -78,7 +81,12 @@ const Astronaut = ({ nodes, w, positionY }) => {
           <hemisphereLight intensity={1} position={[-2, -1, -1]} />
           <directionalLight intensity={1} position={[-3, 3, 3]} />
           <group scale={w / 6} position={[0, -5, -1.5]}>
-            <Text font={font} position={[0.3, 4, 1]} scale={0.12}>
+            <Text
+              font={font}
+              color={"#f1f2e3"}
+              position={[0.3, 4, 1]}
+              scale={0.12}
+            >
               Frog has a balloon-like body that {`\n`}can make him float in
               space
             </Text>
@@ -102,7 +110,11 @@ const Astronaut = ({ nodes, w, positionY }) => {
           </group>
         </MeshPortalMaterial>
       </mesh>
-      <mesh position={[0, positionY, -0.001]} scale={1.02}>
+      <mesh
+        position={[0, positionY, -0.001]}
+        rotation={[0, Math.PI / 15, -Math.PI / 20]}
+        scale={1.02}
+      >
         <planeGeometry args={[w / 2, w / 2]} />
         <meshStandardMaterial color={"#000000"} />
       </mesh>
@@ -113,7 +125,10 @@ const Astronaut = ({ nodes, w, positionY }) => {
 const Sweet = ({ nodes, w, positionY }) => {
   return (
     <>
-      <mesh position={[0, positionY, 0]}>
+      <mesh
+        position={[0, positionY, 0]}
+        rotation={[0, -Math.PI / 30, Math.PI / 20]}
+      >
         <planeGeometry args={[w / 2, w / 2]} />
         <MeshPortalMaterial>
           <color attach="background" args={["#d7e3fc"]} />
@@ -121,22 +136,29 @@ const Sweet = ({ nodes, w, positionY }) => {
           <hemisphereLight intensity={1} position={[1, 5, 1.5]} />
           <directionalLight intensity={1} position={[1, 5, 1.5]} />
           <group
-            scale={w / 13}
-            position={[0.2, -1, -0.5]}
+            scale={w / 14}
+            position={[0, -1, -0.5]}
             rotation={[Math.PI / 6, -Math.PI / 8, 0]}
           >
             <Picnic_in nodes={nodes} />
           </group>
         </MeshPortalMaterial>
       </mesh>
-      <mesh position={[0, positionY, -0.001]} scale={1.02}>
+      <mesh
+        position={[0, positionY, -0.001]}
+        rotation={[0, -Math.PI / 30, Math.PI / 20]}
+        scale={1.02}
+      >
         <planeGeometry args={[w / 2, w / 2]} />
         <meshStandardMaterial color={"#000000"} />
       </mesh>
-      <group position={[0, positionY, 0]}>
+      <group
+        position={[0, positionY, 0]}
+        rotation={[0, -Math.PI / 30, Math.PI / 20]}
+      >
         <group
-          scale={w / 13}
-          position={[0.2, -1, -0.5]}
+          scale={w / 14}
+          position={[0, -1, -0.5]}
           rotation={[Math.PI / 6, -Math.PI / 8, 0]}
         >
           <Picnic_out nodes={nodes} />
@@ -155,7 +177,7 @@ const PICNIC_COLORS = {
   blueberry: "#b8c0ff",
   blueberry_cream: "#dee2ff",
   brown: "#d4a373",
-  cream2: "#ffd991",
+  cream2: "#ffdea2",
   cream1: "#fdfcdc",
   dark_brown: "#7f5539",
   green1: "#bfcc94",
@@ -189,7 +211,7 @@ const Picnic_in = ({ nodes }) => {
         <meshStandardMaterial color={PICNIC_COLORS.blueberry} />
       </mesh>
       <mesh geometry={nodes.brown.geometry}>
-        <meshToonMaterial color={PICNIC_COLORS.brown} />
+        <meshStandardMaterial color={PICNIC_COLORS.brown} />
       </mesh>
       <mesh geometry={nodes.cream1_in.geometry}>
         <meshToonMaterial color={PICNIC_COLORS.cream1} />
@@ -201,11 +223,11 @@ const Picnic_in = ({ nodes }) => {
         <meshToonMaterial color={PICNIC_COLORS.blueberry_cream} />
       </mesh>
       <mesh geometry={nodes.dark_brown_sweet.geometry}>
-        <meshToonMaterial color={PICNIC_COLORS.dark_brown} />
+        <meshStandardMaterial color={PICNIC_COLORS.dark_brown} />
       </mesh>
       <mesh geometry={nodes.glass.geometry}>
         <meshStandardMaterial
-          color={"#c5dedd"}
+          color={"#b8c0ff"}
           transparent
           opacity={0.6}
           depthWrite={false}
@@ -303,7 +325,11 @@ const Picnic_out = ({ nodes }) => {
 const Island = ({ nodes, w, positionY }) => {
   return (
     <>
-      <mesh position={[0, positionY, 0]}>
+      <mesh
+        position={[0, positionY, 0]}
+        rotation={[-Math.PI / 20, 0, 0]}
+        scale={1.02}
+      >
         <planeGeometry args={[w / 2, w / 2]} />
         <MeshPortalMaterial>
           <color attach="background" args={["#9bcdff"]} />
@@ -368,7 +394,11 @@ const Island = ({ nodes, w, positionY }) => {
           </group>
         </MeshPortalMaterial>
       </mesh>
-      <mesh position={[0, positionY, -0.001]} scale={1.02}>
+      <mesh
+        position={[0, positionY, -0.001]}
+        rotation={[-Math.PI / 20, 0, 0]}
+        scale={1.04}
+      >
         <planeGeometry args={[w / 2, w / 2]} />
         <meshStandardMaterial color={"#000000"} />
       </mesh>

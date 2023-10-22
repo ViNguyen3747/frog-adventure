@@ -13,12 +13,12 @@ body,
 canvas {
   width: 100%;
   height: 100%;
-  background-color: #f1f2e3;
+  background-color: #1d1d1d;
   cursor: url("/frog.svg"), default;
 }
 
 .draft {
-  background-color: #f7a4b2;
+  background-color: #ffdea2;
 }
 
 .scrollArea {
@@ -39,7 +39,7 @@ canvas {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(0, 0, 0);
+  background-color: #000000;
 }
 
 a {
@@ -50,15 +50,15 @@ a {
   left: 0;
   margin: 10px;
   font-family: "Cormorant Upright", serif;
-  color: #252525;
-  font-size: 24px;
+  color: #faf6ce;
+  font-size: 18px;
   text-decoration: none;
 }
 a:hover {
   cursor: url("/frog.svg"), pointer;
 }
 #name::before {
-  background-color: #252525;
+  background-color: #faf6ce;
   content: "";
   display: inline-block;
   height: 1px;
@@ -68,6 +68,6 @@ a:hover {
 }
 
 a:hover #name::before {
-  background-color: #252525;
+  background-color: #faf6ce;
   width: 3rem;
 }
