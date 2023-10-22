@@ -136,9 +136,9 @@ const Sweet = ({ nodes, w, positionY }) => {
           <hemisphereLight intensity={1} position={[1, 5, 1.5]} />
           <directionalLight intensity={1} position={[1, 5, 1.5]} />
           <Text font={font} position={[0, 2, 0]} scale={0.16} color={"#1d1d1d"}>
-            He loves to pay an unannounced visit to human's picnics.{`\n`}And
-            most of the time, thanks to his cuteness,...{`\n`}...he got to eat
-            some of their dessert too.
+            He loves to pay an unannounced visit to human picnics.{`\n`}And most
+            of the time, thanks to his cuteness,...{`\n`}...he got to eat some
+            of their desserts too.
           </Text>
           <group
             scale={w / 14}
@@ -332,7 +332,7 @@ const Island = ({ nodes, w, positionY }) => {
     <>
       <mesh
         position={[0, positionY, 0]}
-        rotation={[-Math.PI / 20, 0, 0]}
+        rotation={[-Math.PI / 20, 0, -Math.PI / 40]}
         scale={1.02}
       >
         <planeGeometry args={[w / 2, w / 2]} />
@@ -348,8 +348,8 @@ const Island = ({ nodes, w, positionY }) => {
               scale={0.07}
               color={"#1d1d1d"}
             >
-              He can float to wherever he likes{`\n`}
-              and enjoy daydreaming most of the time.
+              Frog can't swim but he can float to wherever he likes{`\n`}
+              and enjoys daydreaming most of the time.
             </Text>
             <group rotation={[0, -Math.PI / 6, 0]}>
               <primitive object={nodes.frog_island} />
@@ -401,7 +401,7 @@ const Island = ({ nodes, w, positionY }) => {
       </mesh>
       <mesh
         position={[0, positionY, -0.001]}
-        rotation={[-Math.PI / 20, 0, 0]}
+        rotation={[-Math.PI / 20, 0, -Math.PI / 40]}
         scale={1.04}
       >
         <planeGeometry args={[w / 2, w / 2]} />
