@@ -135,6 +135,11 @@ const Sweet = ({ nodes, w, positionY }) => {
           <ambientLight intensity={1} />
           <hemisphereLight intensity={1} position={[1, 5, 1.5]} />
           <directionalLight intensity={1} position={[1, 5, 1.5]} />
+          <Text font={font} position={[0, 2, 0]} scale={0.16} color={"#1d1d1d"}>
+            He loves to pay an unannounced visit to human's picnics.{`\n`}And
+            most of the time, thanks to his cuteness,...{`\n`}...he got to eat
+            some of their dessert too.
+          </Text>
           <group
             scale={w / 14}
             position={[0, -1, -0.5]}
@@ -341,15 +346,15 @@ const Island = ({ nodes, w, positionY }) => {
               font={font}
               position={[0.6, 3.5, 1]}
               scale={0.07}
-              color={"#000000"}
+              color={"#1d1d1d"}
             >
-              He also uses his chubby body to float to wherever he likes{`\n`}
-              because Frog doesn't know how to swim.
+              He can float to wherever he likes{`\n`}
+              and enjoy daydreaming most of the time.
             </Text>
             <group rotation={[0, -Math.PI / 6, 0]}>
               <primitive object={nodes.frog_island} />
               <mesh geometry={nodes.black_island.geometry}>
-                <meshStandardMaterial color={"#000000"} />
+                <meshStandardMaterial color={"#1d1d1d"} />
               </mesh>
               <mesh geometry={nodes.cream.geometry}>
                 <meshStandardMaterial color={"#faf0ca"} />
