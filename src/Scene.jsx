@@ -11,8 +11,8 @@ export default () => {
     <group ref={group}>
       <Intro frog={nodes.frog} />
       <Astronaut nodes={nodes} w={w} positionY={-h} />
-      <Sweet nodes={nodes} w={w} positionY={-h * 2.1} />
-      <Island nodes={nodes} w={w} positionY={-h * 3.2} />
+      <Sweet nodes={nodes} w={w} positionY={-h * 2} />
+      <Island nodes={nodes} w={w} positionY={-h * 3} />
       <Ending />
     </group>
   );
@@ -71,7 +71,7 @@ const Astronaut = ({ nodes, w, positionY }) => {
   return (
     <>
       <mesh
-        position={[0, positionY, 0]}
+        position={[0, positionY, -0.5]}
         rotation={[0, Math.PI / 15, -Math.PI / 20]}
       >
         <planeGeometry args={[w / 2, w / 2]} />
@@ -87,7 +87,7 @@ const Astronaut = ({ nodes, w, positionY }) => {
               position={[0.3, 4, 1]}
               scale={0.12}
             >
-              Frog has a balloon-like body that {`\n`}can make him float in
+              Frog has a balloon-like body that {`\n`}can allows him to float in
               space
             </Text>
             <primitive object={nodes.moon} />
@@ -111,7 +111,7 @@ const Astronaut = ({ nodes, w, positionY }) => {
         </MeshPortalMaterial>
       </mesh>
       <mesh
-        position={[0, positionY, -0.001]}
+        position={[0, positionY, -0.501]}
         rotation={[0, Math.PI / 15, -Math.PI / 20]}
         scale={1.02}
       >
@@ -135,7 +135,12 @@ const Sweet = ({ nodes, w, positionY }) => {
           <ambientLight intensity={1} />
           <hemisphereLight intensity={1} position={[1, 5, 1.5]} />
           <directionalLight intensity={1} position={[1, 5, 1.5]} />
-          <Text font={font} position={[0, 2, 0]} scale={0.16} color={"#1d1d1d"}>
+          <Text
+            font={font}
+            position={[0, 1.8, 0]}
+            scale={0.16}
+            color={"#1d1d1d"}
+          >
             He loves to pay an unannounced visit to human picnics.{`\n`}And most
             of the time, thanks to his cuteness,...{`\n`}...he got to eat some
             of their desserts too.
@@ -348,8 +353,9 @@ const Island = ({ nodes, w, positionY }) => {
               scale={0.07}
               color={"#1d1d1d"}
             >
-              Frog can't swim but he can float to wherever he likes{`\n`}
-              and enjoys daydreaming most of the time.
+              Frog can't swim, but he can float to wherever he likes,{`\n`}
+              ...to where he could enjoy daydreaming...{`\n`}without anyone
+              judging.
             </Text>
             <group rotation={[0, -Math.PI / 6, 0]}>
               <primitive object={nodes.frog_island} />
