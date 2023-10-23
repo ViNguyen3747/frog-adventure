@@ -53,10 +53,9 @@ a {
   color: #faf6ce;
   font-size: 18px;
   text-decoration: none;
-}
-a:hover {
   cursor: url("/frog.svg"), pointer;
 }
+
 #name::before {
   background-color: #faf6ce;
   content: "";
